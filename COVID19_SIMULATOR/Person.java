@@ -51,6 +51,14 @@ public class Person{
 
     public void setState(State state){
         this.state = state; 
+        if(state == State.INFECTIOUS) // 감염 상태로 바꿀 경우 
+        {
+            this.infected = true; // 불리언 값도 바꿔줌
+        }
+        else                     // 그 외 경우로 바꾸는 경우(백신, 안걸린 경우 등등)
+        {
+            this.infected = false; // 감염여부 거짓 
+        }
     }
 
     public boolean isSuseceptible(){
