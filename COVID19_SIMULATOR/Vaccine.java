@@ -67,7 +67,17 @@ public class Vaccine {
         return this.randOrder;
     }
 
-    public void step(double infectionRate, double recoveryRate){}
+    public void step(double infectionRate, double recoveryRate){
+        for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+               people[i][j].update(recoveryRate);
+            }
+        }
+        
+        printPeople(); 
+    }
 
   //  public Integer[] countStates(){}
 
@@ -86,9 +96,48 @@ public class Vaccine {
 
     //public List<Integer[]> getHistory(){  }
 
-   /*public void printStep(int n){
-       System.out.println("===== " + n + " ===== ("+randOrder.length/(size*size)+"/"+)
-   }*/ 
+    public void printPeople(){
+        for(int i=0; i<people.length; i++)
+        {
+            for(int j=0; j<people[0].length; j++)
+            {
+                System.out.print(people[i][j]);
+            }
+            System.out.println(); 
+        }
+    }
+
+   public void printStep(int n){
+       int numberOfVaccine =0;
+       int numberOfInfector =0; 
+       
+        State[][] state = getPeopleState();
+
+       for(int i=0; i<size; i++)
+       {
+           for(int j=0; j<size; j++)
+           {
+               if(state[i][j]==State.VACCINATED)
+               {
+                   numberOfVaccine ++; 
+               }
+           }
+       }
+
+       for(int i=0; i<size; i++)
+       {
+           for(int j=0; j<size; j++)
+           {
+               if(state[i][j]==State.INFECTIOUS)
+               {
+                   numberOfInfector ++; 
+               }
+           }
+       }
+       double ratioOfVaccine = (double)numberOfVaccine/(size*size)*100f; 
+       double ratioOfInfector =(double)numberOfInfector/(size*size)*100f; 
+       System.out.println("===== " + n + " ===== ("+ ratioOfVaccine+ "/" +ratioOfInfector+")");
+   }
   
     
 }
