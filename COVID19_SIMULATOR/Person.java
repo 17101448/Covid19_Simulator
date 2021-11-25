@@ -14,12 +14,15 @@ public class Person{
     public Person(){
         state = State.SUSCEPTIBLE;
         infected = false; 
+        //setNeighbors(neighbors);
     }
+    
 
-    /*public void setNeighbors(Person[] neighbors){
+ /* public void setNeighbors(Person[] neighbors){
+
         for(int i=0; i<8; i++)
         {
-            neighbors[i]=;
+            neighbors[i]=
         }
         
     }*/
@@ -29,13 +32,12 @@ public class Person{
     }
 
     public void infectNeighbors(double infectionRate){
-
-        Person[] test = getNeighbors();
+        Person[] riskOfInfection = getNeighbors();
         for(int i=0; i<8; i++)
         {
-            if(test[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
+            if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
             {
-                test[i].state =State.INFECTIOUS;
+                riskOfInfection[i].state =State.INFECTIOUS;
             }
         }
     }
@@ -70,9 +72,8 @@ public class Person{
     public boolean isVaccinated(){
         return this.state == State.VACCINATED;
     }
-
+    
     public String toString(){
-
         if(this.state == State.SUSCEPTIBLE)
         {
             return ".";
@@ -81,8 +82,10 @@ public class Person{
         {
             return "*";
         }
-        else return "o";
+        else if(this.state == State.VACCINATED) return "o";
+        else return "";
     }
+
 
 
 }

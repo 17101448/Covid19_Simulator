@@ -12,41 +12,60 @@ public class Vaccine {
     private List<Integer[]> history;
 
     public Vaccine(int size){
+        
         this.size = size; 
-        people = new Person[size][size];
+        System.out.println("size : "+size);
+        this.people = new Person[size][size];
 
         for(int i=0; i<size; i++)
         {
             for(int j=0; j<size; j++)
             {
-                people[i][j] = new Person();
+                this.people[i][j] = new Person();
             }   
-        }// 제시된 배열만큼 정상인을 넣는다. 
-        //initialInfection(); // 초기 감염자를 넣는다. 
+        }
     }
     
 
     public Vaccine(int size, double vaccineRatio){
-        Vaccine vaccine = new Vaccine(size);
+        this(size); 
+        vaccinate(vaccineRatio); 
+        initialInfection(); // 초기 감염자를 넣는다.  
     }
 
     private void initialInfection(){
-        int centerX = size/2+1;
-        int centerY = size/2+1; 
-        people[centerX][centerY].setState(State.INFECTIOUS);
+        int centerX = this.size/2;
+        int centerY = this.size/2; 
+        this.people[centerX][centerY].setState(State.INFECTIOUS);
 
-        for(int i= -1; i<1;i++)
+        for(int i= -1; i<=1;i++)
         {
-         for(int j=-1; j<1;j++)
+         for(int j=-1; j<=1;j++)
          {
-            people[centerX-i][centerY-j].setState(State.INFECTIOUS);
+            this.people[centerX-i][centerY-j].setState(State.INFECTIOUS);
          }
         }
     }
 
-    public void vaccinate(double vaccineRatio){}
+    public void vaccinate(double vaccineRatio){
+        double numberOfVaccinations = vaccineRatio*size*size;
+        randPerm((int)numberOfVaccinations);
+        
 
-//    private int[] randPerm(int n){}
+        for(int i=0; i<this.randOrder.length; i++)
+        {
+                this.people[this.randOrder[i]/size][this.randOrder[i]%size].setState(State.VACCINATED);
+        }
+    }
+
+    int[] randPerm(int n){
+        this.randOrder = new int[n];
+        for(int i=0; i<n; i++)
+        {
+            this.randOrder[i] =(int) (Math.random()*size*size); 
+        }
+        return this.randOrder;
+    }
 
     public void step(double infectionRate, double recoveryRate){}
 
@@ -63,12 +82,13 @@ public class Vaccine {
         }
 
         return peopleState; 
-
     }
 
     //public List<Integer[]> getHistory(){  }
 
-   // public void printStep(int n){}
+   /*public void printStep(int n){
+       System.out.println("===== " + n + " ===== ("+randOrder.length/(size*size)+"/"+)
+   }*/ 
   
     
 }
