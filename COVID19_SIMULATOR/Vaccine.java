@@ -6,7 +6,7 @@ import COVID19_SIMULATOR.Person.State;
 public class Vaccine {
 
     static Person[][] people; 
-    private int size;
+    static int size;
     private int[] randOrder;
 
     private List<Integer[]> history;
@@ -31,6 +31,7 @@ public class Vaccine {
         this(size); 
         vaccinate(vaccineRatio); 
         initialInfection(); // 초기 감염자를 넣는다.  
+        //people[1][1].getNeighbors(); 
     }
 
     private void initialInfection(){
@@ -68,6 +69,7 @@ public class Vaccine {
     }
 
     public void step(double infectionRate, double recoveryRate){
+        //감염이 먼저 와야하는가 회복이 먼저와야하는가 
         for(int i=0; i<size; i++)
         {
             for(int j=0; j<size; j++)
@@ -75,8 +77,18 @@ public class Vaccine {
                people[i][j].update(recoveryRate);
             }
         }
+       /* for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+               people[i][j].infectNeighbors(infectionRate); 
+            }
+        }*/
         
         printPeople(); 
+
+        //TEST!!! 
+        people[1][1].test();
     }
 
   //  public Integer[] countStates(){}

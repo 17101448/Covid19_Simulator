@@ -11,9 +11,9 @@ public class MainEXE {
         sim.printStep(0);
         System.out.println(); 
         
-        sim.step(1,1);
+        sim.step(1,0); // 이후에 감염된 사람이 없어지면 정상 
         sim.printStep(1);
-       
+        
         
 
         //다른 클래스에서 호출 시에도 정상적인 참조변수로 저장되어 있는지 

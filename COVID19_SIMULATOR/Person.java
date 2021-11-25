@@ -1,5 +1,6 @@
 package COVID19_SIMULATOR;
-
+import COVID19_SIMULATOR.Vaccine;
+import COVID19_SIMULATOR.MainEXE;
 public class Person{
     State state;
     private boolean infected;
@@ -14,24 +15,45 @@ public class Person{
     public Person(){
         state = State.SUSCEPTIBLE;
         infected = false; 
-        //setNeighbors(neighbors);
+        setNeighbors(this.neighbors);
     }
     
 
- /* public void setNeighbors(Person[] neighbors){
+public void test(){
+    System.out.println(Vaccine.people[24][19]); 
+}
 
-        for(int i=0; i<8; i++)
+ public void setNeighbors(Person[] neighbors){
+    neighbors = new Person[9];
+    int index=0; 
+    
+    while(index < 8)
+    {
+        
+        for(int i=-1; i<=1; i++)
         {
-            neighbors[i]=
+            for(int j=1; j<=1; j++) 
+            {
+                neighbors[index]= Vaccine.people[i][j]; 
+                index ++; 
+            }
         }
         
-    }*/
-
-    public Person[] getNeighbors(){
-        return this.neighbors; 
+    }
+     
     }
 
-    public void infectNeighbors(double infectionRate){
+  /*  public Person[] getNeighbors(){
+        for(int i=0; i<8; i++)
+        {
+            System.out.print(neighbors[i]); 
+        }
+
+        System.out.println("이웃반환");
+        return this.neighbors; 
+    }*/
+
+    /*public void infectNeighbors(double infectionRate){
         Person[] riskOfInfection = getNeighbors();
         for(int i=0; i<8; i++)
         {
@@ -40,7 +62,7 @@ public class Person{
                 riskOfInfection[i].state =State.INFECTIOUS;
             }
         }
-    }
+    }*/ 
 
     public void update(double recoveryRate){
         if(this.state == State.INFECTIOUS && recoveryRate>=Math.random())
