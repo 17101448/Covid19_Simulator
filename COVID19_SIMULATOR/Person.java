@@ -1,7 +1,7 @@
 package COVID19_SIMULATOR;
 
 public class Person{
-    private State state;
+    State state;
     private boolean infected;
     private Person[] neighbors;
 
@@ -16,18 +16,16 @@ public class Person{
         infected = false; 
     }
 
-    public void setNeighbors(Person[] neighbors){
+    /*public void setNeighbors(Person[] neighbors){
         for(int i=0; i<8; i++)
         {
             neighbors[i]=;
         }
         
-    }
+    }*/
 
     public Person[] getNeighbors(){
-      
         return this.neighbors; 
-        
     }
 
     public void infectNeighbors(double infectionRate){

@@ -6,12 +6,13 @@ import COVID19_SIMULATOR.Person.State;
 public class Vaccine {
 
     static Person[][] people; 
-    private int size = 25;
+    private int size;
     private int[] randOrder;
 
     private List<Integer[]> history;
 
     public Vaccine(int size){
+        this.size = size; 
         people = new Person[size][size];
 
         for(int i=0; i<size; i++)
@@ -20,16 +21,13 @@ public class Vaccine {
             {
                 people[i][j] = new Person();
             }   
-        }
-        initialInfection(); 
+        }// 제시된 배열만큼 정상인을 넣는다. 
+        //initialInfection(); // 초기 감염자를 넣는다. 
     }
     
 
     public Vaccine(int size, double vaccineRatio){
         Vaccine vaccine = new Vaccine(size);
-
-        
-
     }
 
     private void initialInfection(){
@@ -48,17 +46,29 @@ public class Vaccine {
 
     public void vaccinate(double vaccineRatio){}
 
-    private int[] randPerm(int n){}
+//    private int[] randPerm(int n){}
 
     public void step(double infectionRate, double recoveryRate){}
 
-    public Integer[] countStates(){}
+  //  public Integer[] countStates(){}
 
-    public State[][] getPeopleState(){}
+    public State[][] getPeopleState(){
+        State peopleState[][] = new State[size][size];
+        for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+                peopleState[i][j] = people[i][j].state; 
+            }
+        }
 
-    public List<Integer[]> getHistory(){
+        return peopleState; 
 
-    public void printStep(int n){}
     }
+
+    //public List<Integer[]> getHistory(){  }
+
+   // public void printStep(int n){}
+  
     
 }
