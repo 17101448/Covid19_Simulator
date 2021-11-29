@@ -9,10 +9,22 @@ public class MainEXE {
          
         sim.printPeople();
         sim.printStep(0);
+        System.out.println("test");
+        /*for(int i=0; i<25; i++)
+        {
+            for(int j=0; j<25; j++)
+            {
+                System.out.print(sim.getPeopleState()[i][j]);
+            }
+            System.out.println("");
+        }*/
         System.out.println(); 
+       for(int n=0; n< 10; n++)
+        {
+            sim.step(0.7,0.5); // 이후에 감염된 사람이 없어지면 정상 
+            sim.printStep(n+1);
+        }
         
-        sim.step(1,0); // 이후에 감염된 사람이 없어지면 정상 
-        sim.printStep(1);
         
         
 

@@ -2,7 +2,7 @@ package COVID19_SIMULATOR;
 import COVID19_SIMULATOR.Vaccine;
 import COVID19_SIMULATOR.MainEXE;
 public class Person{
-    State state;
+    private State state;
     private boolean infected;
     private Person[] neighbors;
 
@@ -15,54 +15,31 @@ public class Person{
     public Person(){
         state = State.SUSCEPTIBLE;
         infected = false; 
-        setNeighbors(this.neighbors);
+        //this.setNeighbors(this.neighbors);
     }
     
 
-public void test(){
-    System.out.println(Vaccine.people[24][19]); 
-}
-
- public void setNeighbors(Person[] neighbors){
-    neighbors = new Person[9];
-    int index=0; 
-    
-    while(index < 8)
-    {
-        
-        for(int i=-1; i<=1; i++)
-        {
-            for(int j=1; j<=1; j++) 
-            {
-                neighbors[index]= Vaccine.people[i][j]; 
-                index ++; 
-            }
-        }
-        
-    }
-     
+    //
+    public void setNeighbors(Person[] neighbors){
+    this.neighbors = neighbors;
     }
 
-  /*  public Person[] getNeighbors(){
-        for(int i=0; i<8; i++)
-        {
-            System.out.print(neighbors[i]); 
-        }
 
-        System.out.println("이웃반환");
+    public Person[] getNeighbors(){
         return this.neighbors; 
-    }*/
+    }
 
-    /*public void infectNeighbors(double infectionRate){
-        Person[] riskOfInfection = getNeighbors();
-        for(int i=0; i<8; i++)
+    public void infectNeighbors(double infectionRate){
+        Person[] riskOfInfection = getNeighbors(); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
+        for(int i=0; i<9; i++) // 해당 배열 요소 전체에 접근하여 
         {
             if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
+            //
             {
-                riskOfInfection[i].state =State.INFECTIOUS;
+                riskOfInfection[i].setState(State.INFECTIOUS);
             }
         }
-    }*/ 
+    }
 
     public void update(double recoveryRate){
         if(this.state == State.INFECTIOUS && recoveryRate>=Math.random())
@@ -83,7 +60,7 @@ public void test(){
         }
     }
 
-    public boolean isSuseceptible(){
+    public boolean isSusceptible(){
         return this.state == State.SUSCEPTIBLE;
     }
 
