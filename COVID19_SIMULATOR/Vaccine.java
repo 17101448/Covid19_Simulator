@@ -51,6 +51,7 @@ public class Vaccine {
                 people[x][y].setNeighbors(neighbors);
                 k=0;
                 
+                //필독 ! 배열자체를 지역변수로 선언해버렸기 때문에 반복문이 끝난후에는 null만 남는다 ㅠ 
                 for(int i=0; i<8; i++)
                 {
                     System.out.println(people[1][1].getNeighbors()[i]);
