@@ -4,12 +4,23 @@ import COVID19_SIMULATOR.Person.State;
 
 public class MainEXE {
     public static void main(String[] args){
-        Vaccine sim = new Vaccine(25, 0.1);
+        Vaccine sim = new Vaccine(5, 1);
         System.out.println(); 
          
         sim.printPeople();
         sim.printStep(0);
         System.out.println("test");
+
+        for(int i=0; i<8; i++)
+        {
+            System.out.println(i+" : "+sim.people[1][1].getNeighbors()[i]);
+        }
+
+        for(int i=0; i<8; i++)
+        {
+            System.out.println(i+" : "+sim.people[1][1].getNeighbors()[i]);
+        }
+        System.out.println(sim.people[1][1]);
         /*for(int i=0; i<25; i++)
         {
             for(int j=0; j<25; j++)

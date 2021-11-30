@@ -22,6 +22,13 @@ public class Person{
     //
     public void setNeighbors(Person[] neighbors){
     this.neighbors = neighbors;
+    System.out.println("Person.setNeighbors");
+    for(int i=0; i<8; i++) 
+    {
+        System.out.println("getNeighbors"+i+" : "+getNeighbors()[i]); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
+    }
+    System.out.println("Person.setNeighbors 종료");
+
     }
 
 
@@ -30,7 +37,12 @@ public class Person{
     }
 
     public void infectNeighbors(double infectionRate){
-        Person[] riskOfInfection = getNeighbors(); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
+        Person[] riskOfInfection = new Person[8];
+        for(int i=0; i<8; i++) 
+        {
+            System.out.println(getNeighbors()); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
+        }
+        
         for(int i=0; i<9; i++) // 해당 배열 요소 전체에 접근하여 
         {
             if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
@@ -72,7 +84,7 @@ public class Person{
         return this.state == State.VACCINATED;
     }
     
-    public String toString(){
+   /*public String toString(){
         if(this.state == State.SUSCEPTIBLE)
         {
             return ".";
@@ -83,7 +95,7 @@ public class Person{
         }
         else if(this.state == State.VACCINATED) return "o";
         else return "";
-    }
+    }*/
 
 
 
