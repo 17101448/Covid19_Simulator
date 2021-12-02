@@ -1,10 +1,12 @@
 package COVID19_SIMULATOR;
+import java.awt.*;
+import javax.swing.*;
 
 import COVID19_SIMULATOR.Person.State;
 
 public class MainEXE {
     public static void main(String[] args){
-        Vaccine sim = new Vaccine(10, 0.1);
+        Vaccine sim = new Vaccine(6, 0.1);
         System.out.println(); 
          
         sim.printPeople();
@@ -32,7 +34,15 @@ public class MainEXE {
             sim.printStep(n+1);
             System.out.println();
         }
-        
+        EventQueue.invokeLater(new Runnable(){
+            public void run(){
+                JFrame frame = new vaccineframe(); 
+                frame.setTitle("VaccineDemo");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setVisible(true); 
+                //
+            }
+        });
         
         
 

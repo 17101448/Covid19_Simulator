@@ -5,7 +5,7 @@ import COVID19_SIMULATOR.Person.State;
 
 public class Vaccine {
 
-     Person[][] people; 
+    Person[][] people; 
     private int size;
     private int[] randOrder;
 
@@ -144,6 +144,7 @@ public class Vaccine {
     }
 
     public void step(double infectionRate, double recoveryRate){
+      
         //감염이 먼저 와야하는가 회복이 먼저와야하는가 
         for(int i=0; i<size; i++)
         {
@@ -156,18 +157,15 @@ public class Vaccine {
         {
             for(int j=1; j<size-1; j++)
             {//peoplestate가 감염상태가 아니여도 들어가버림 
-                if(getPeopleState()[i][j] == State.INFECTIOUS);
+                if(people[i][j].state == State.INFECTIOUS);
                 {
-                    System.out.print(i+"i"+":"+j+"j" +"번째 진입 : "+getPeopleState()[i][j]);
+                    System.out.print(i+"i"+","+j+"j" +" : "+people[i][j]+" ");
                     people[i][j].infectNeighbors(infectionRate); 
                 }
             }
         }
         
         printPeople(); 
-
-        //TEST!!! 
-       // people[1][1].test();
     }
 
   //  public Integer[] countStates(){}
@@ -193,15 +191,20 @@ public class Vaccine {
                 
             }
         }
-
         return peopleState; 
     }
 
     //public List<Integer[]> getHistory(){  }
 
     public void printPeople(){
+        System.out.print(" "); 
         for(int i=0; i<people.length; i++)
         {
+            System.out.print(i);
+        }
+        System.out.println(); 
+        for(int i=0; i<people.length; i++)
+        {   System.out.print(i);
             for(int j=0; j<people[0].length; j++)
             {
                 System.out.print(people[i][j]);
