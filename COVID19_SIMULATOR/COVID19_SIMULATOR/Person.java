@@ -28,16 +28,15 @@ public class Person{
 }
 
     public void infectNeighbors(double infectionRate){
-        Person[] riskOfInfection = new Person[8];
-        riskOfInfection = getNeighbors();
+        System.out.println("이웃전파 들어옴");
         for(int i=0; i<8; i++)
         {
-            if(riskOfInfection[i].state != State.VACCINATED)
+            if(!(getNeighbors()[i].isVaccinated()))
             {
-                if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
+                if(getNeighbors()[i].isSuseceptible() && infectionRate >= Math.random())
                 {
-                    System.out.print("ROfI"+"["+i+"]"+riskOfInfection[i]+" / ");
-                    riskOfInfection[i].state =State.INFECTIOUS;
+                    System.out.print("ROfI"+"["+i+"]"+getNeighbors()[i]+" / ");
+                    getNeighbors()[i].setState(State.INFECTIOUS);
                 }
             }
             
@@ -46,7 +45,7 @@ public class Person{
     }
 
     public void update(double recoveryRate){
-        if(this.state == State.INFECTIOUS && recoveryRate>=Math.random())
+        if(isInfectious() && recoveryRate>=Math.random())
         {
             setState(State.SUSCEPTIBLE);
         }
@@ -54,7 +53,7 @@ public class Person{
 
     public void setState(State state){
         this.state = state; 
-        if(state == State.INFECTIOUS) // 감염 상태로 바꿀 경우 
+        if(isInfectious()) // 감염 상태로 바꿀 경우 
         {
             this.infected = true; // 불리언 값도 바꿔줌
         }

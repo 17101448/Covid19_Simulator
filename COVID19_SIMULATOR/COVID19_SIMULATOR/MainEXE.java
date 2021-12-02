@@ -1,24 +1,26 @@
 package COVID19_SIMULATOR;
-import java.awt.*;
-import javax.swing.*;
 
-import COVID19_SIMULATOR.Person.State;
 
 public class MainEXE {
+
+   
     public static void main(String[] args){
-        Vaccine sim = new Vaccine(6, 0.1);
+        int testX = 3; 
+        int testY = 3;
+        Vaccine sim = new Vaccine(9, 0.1); //
         System.out.println(); 
-         
+        System.out.println("메인문 "+ 0 +"번째 단계"); 
         sim.printPeople();
         sim.printStep(0);
-        System.out.println("test");
+        System.out.println("people["+testX+"]["+testY+"]의 이웃 / 메인에서 실행");    
 
         for(int i=0; i<8; i++)
         {
-            System.out.println(i+" : "+sim.people[1][2].getNeighbors()[i]);
+            
+            System.out.println(i+" : "+sim.people[testX][testY].getNeighbors()[i]);
         }
 
-        System.out.println(sim.people[1][1]);
+        System.out.println(sim.people[testX][testY]);
         /*for(int i=0; i<25; i++)
         {
             for(int j=0; j<25; j++)
@@ -27,25 +29,22 @@ public class MainEXE {
             }
             System.out.println("");
         }*/
-     System.out.println(); 
-       for(int n=0; n< 2; n++)
+        System.out.println(); 
+       for(int n=0; n< 5; n++)
         {
-            sim.step(0.2,0.5); // 이후에 감염된 사람이 없어지면 정상 
+            System.out.println("메인문 "+ (n+1) +"번째 단계"); 
+            sim.step(0.2,0.1); // 이후에 감염된 사람이 없어지면 정상 
             sim.printStep(n+1);
+            for(int i=0; i<8; i++)
+            {
+                System.out.println("people["+testX+"]["+testY+"]의 이웃 / step"+n+"이후 실행");    
+                System.out.println(i+" : "+sim.people[testX][testY].getNeighbors()[i]);
+            }
             System.out.println();
         }
-        EventQueue.invokeLater(new Runnable(){
-            public void run(){
-                JFrame frame = new vaccineframe(); 
-                frame.setTitle("VaccineDemo");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true); 
-                //
-            }
-        });
-        
-        
 
+
+    
         //다른 클래스에서 호출 시에도 정상적인 참조변수로 저장되어 있는지 
         /*State[][] state = sim.getPeopleState();
         for(int i=0; i<25; i++)

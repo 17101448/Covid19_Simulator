@@ -33,25 +33,6 @@ public class Vaccine {
             for(int j=1; j<size-1; j++)
             {
                 Person[] naver = new Person[8];
-                if(i==0&&j==0)
-                {
-                    naver[0] = people[size-1][size-2];
-                    naver[1] = people[size-1][size-1];
-                    naver[2] = people[size-1][j+1];
-                    naver[3] = people[i][j-1];
-                    naver[4] = people[i][j+1];
-                    naver[5] = people[i+1][j-1];
-                    naver[6] = people[i+1][j];
-                    naver[7] = people[i+1][j+1];
-                }
-
-                for(int l=0; l<size; l++)
-                {
-                    for(int m=0; m<size; m++)
-                    {
-                        this.people[i][j] = new Person();
-                    }   
-                }
                 
                 System.out.println("setNeighbors"+i+j);
                 naver[0] = people[i-1][j-1];
@@ -66,11 +47,10 @@ public class Vaccine {
                 System.out.println("어디로 접근하는가?"+people[i][j]);
                 for(int k=0; k<8; k++)
                 {
-                    System.out.println("naver"+k+" : "+naver[k]);
-                    System.out.println("메서드 안 "+k+" : "+people[i][j].getNeighbors()[k]);
+                    System.out.print("naver"+k+":"+naver[k]  +" / ");
+                    System.out.print("getN()["+k+"]:"+people[i][j].getNeighbors()[k]+" ");
                 }
                 System.out.println("setNeighbors 종료"+i+j);
-               
             }   
             
         }
@@ -97,13 +77,12 @@ public class Vaccine {
             {
                 System.out.println(i+","+j+","+people[i][j]);
             }
-        }
-
+        }\
         for(int i=0; i<8; i++)
         {
             System.out.println("1 1 : "+i+" : "+people[1][2].getNeighbors()[i]);
         }*/
-        System.out.println(people[1][1]);
+       
     }
 
     private void initialInfection(){
@@ -118,9 +97,6 @@ public class Vaccine {
                 this.people[centerX-i][centerY-j].setState(State.INFECTIOUS);
             }
         }
-
-        //
-      
     }
 
     public void vaccinate(double vaccineRatio){
@@ -158,7 +134,8 @@ public class Vaccine {
             for(int j=1; j<size-1; j++)
             {//peoplestate가 감염상태가 아니여도 들어가버림 
                 if(people[i][j].state == State.INFECTIOUS);
-                {
+                {   
+                    System.out.println("감염이라 들어옴"); 
                     System.out.print(i+"i"+","+j+"j" +" : "+people[i][j]+" ");
                     people[i][j].infectNeighbors(infectionRate); 
                 }
