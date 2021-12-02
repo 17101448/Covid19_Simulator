@@ -2,7 +2,7 @@ package COVID19_SIMULATOR;
 import COVID19_SIMULATOR.Vaccine;
 import COVID19_SIMULATOR.MainEXE;
 public class Person{
-    private State state;
+    State state;
     private boolean infected;
     private Person[] neighbors;
 
@@ -15,42 +15,34 @@ public class Person{
     public Person(){
         state = State.SUSCEPTIBLE;
         infected = false; 
-        //this.setNeighbors(this.neighbors);
+        setNeighbors(this.neighbors);
     }
     
 
-    //
-    public void setNeighbors(Person[] neighbors){
-    this.neighbors = neighbors;
-    System.out.println("Person.setNeighbors");
-    for(int i=0; i<8; i++) 
-    {
-        System.out.println("getNeighbors"+i+" : "+getNeighbors()[i]); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
-    }
-    System.out.println("Person.setNeighbors 종료");
+ public void setNeighbors(Person[] neighbors){
+    this.neighbors = neighbors; 
+}
 
-    }
-
-
-    public Person[] getNeighbors(){
+  public Person[] getNeighbors(){
         return this.neighbors; 
-    }
+}
 
     public void infectNeighbors(double infectionRate){
         Person[] riskOfInfection = new Person[8];
-        for(int i=0; i<8; i++) 
+        riskOfInfection = getNeighbors();
+        for(int i=0; i<8; i++)
         {
-            System.out.println(getNeighbors()); // 감염자의 이웃을 감염위험군(riskOfInfection) Person객체를 가지는 1차원 배열로 설정한다.
-        }
-        
-        for(int i=0; i<9; i++) // 해당 배열 요소 전체에 접근하여 
-        {
-            if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
-            //
+            if(riskOfInfection[i].state != State.VACCINATED)
             {
-                riskOfInfection[i].setState(State.INFECTIOUS);
+                if(riskOfInfection[i].state == State.SUSCEPTIBLE && infectionRate >= Math.random())
+                {
+                    System.out.print("ROfI"+"["+i+"]"+riskOfInfection[i]+" / ");
+                    riskOfInfection[i].state =State.INFECTIOUS;
+                }
             }
+            
         }
+        System.out.println();
     }
 
     public void update(double recoveryRate){
@@ -72,7 +64,7 @@ public class Person{
         }
     }
 
-    public boolean isSusceptible(){
+    public boolean isSuseceptible(){
         return this.state == State.SUSCEPTIBLE;
     }
 
@@ -84,7 +76,7 @@ public class Person{
         return this.state == State.VACCINATED;
     }
     
-   /*public String toString(){
+  public String toString(){
         if(this.state == State.SUSCEPTIBLE)
         {
             return ".";
@@ -95,7 +87,7 @@ public class Person{
         }
         else if(this.state == State.VACCINATED) return "o";
         else return "";
-    }*/
+    }
 
 
 

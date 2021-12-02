@@ -17,7 +17,7 @@ public class Vaccine {
         System.out.println("size : "+size);
         this.people = new Person[size][size];
 
-        Person[] naver = new Person[8];
+        
         for(int i=0; i<size; i++)
         {
             for(int j=0; j<size; j++)
@@ -26,44 +26,33 @@ public class Vaccine {
             }   
         }
         System.out.println("백신 생성자에서 이웃 넣어줌");
-        for(int x=0; x<size; x++)
-    {
-      for(int y=0; y<size; y++)
-      {
-          for(int i=-1; i<=1; i++)
-          {
-            for(int j=-1; j<=1; j++)
-            {
-
-                if(i==0 && j==0){k+=0;}
-                else{int g = i+x;
-                    if(i+x<0){g = size-1;}
-
-                    if(g>size-1){g=0;}
-
-                    int m = j+y;
-
-                    if(m<0){
-                        m = size-1;
-                    }
-
-                    if(m>size-1){
-                        m = 0;
-                    }
-                    getNeighbors()[k] = people[x][y].people[g][m]; 
-                    
-                    k++;
-                    if(k==8){
-                        k=0;
-                        break;
-                    }
-            } 
-        }
-    }
-       /* for(int i=1; i<size-1; i++)
+        // 이웃 몇몇 부분에서는 *이 .으로 표시됨 
+        // 조건 각각 할당해서 도넛 월드 구현해 줘야함
+       for(int i=1; i<size-1; i++)
         {
             for(int j=1; j<size-1; j++)
             {
+                Person[] naver = new Person[8];
+                if(i==0&&j==0)
+                {
+                    naver[0] = people[size-1][size-2];
+                    naver[1] = people[size-1][size-1];
+                    naver[2] = people[size-1][j+1];
+                    naver[3] = people[i][j-1];
+                    naver[4] = people[i][j+1];
+                    naver[5] = people[i+1][j-1];
+                    naver[6] = people[i+1][j];
+                    naver[7] = people[i+1][j+1];
+                }
+
+                for(int l=0; l<size; l++)
+                {
+                    for(int m=0; m<size; m++)
+                    {
+                        this.people[i][j] = new Person();
+                    }   
+                }
+                
                 System.out.println("setNeighbors"+i+j);
                 naver[0] = people[i-1][j-1];
                 naver[1] = people[i-1][j];
@@ -74,18 +63,22 @@ public class Vaccine {
                 naver[6] = people[i+1][j];
                 naver[7] = people[i+1][j+1];
                 people[i][j].setNeighbors(naver);
+                System.out.println("어디로 접근하는가?"+people[i][j]);
                 for(int k=0; k<8; k++)
                 {
                     System.out.println("naver"+k+" : "+naver[k]);
+                    System.out.println("메서드 안 "+k+" : "+people[i][j].getNeighbors()[k]);
                 }
                 System.out.println("setNeighbors 종료"+i+j);
                
             }   
-        }*/
+            
+        }
+     
 
     }
 //이웃설정 
-}
+
     
         //initialInfection(); // 초기 감염자를 넣는다.  
  // 백신 생성자 
@@ -96,7 +89,21 @@ public class Vaccine {
     public Vaccine(int size, double vaccineRatio){
         this(size); 
         vaccinate(vaccineRatio); 
-        initialInfection(); // 초기 감염자를 넣는다.  
+        initialInfection(); // 초기 감염자를 넣는다. 
+        /*
+        for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+                System.out.println(i+","+j+","+people[i][j]);
+            }
+        }
+
+        for(int i=0; i<8; i++)
+        {
+            System.out.println("1 1 : "+i+" : "+people[1][2].getNeighbors()[i]);
+        }*/
+        System.out.println(people[1][1]);
     }
 
     private void initialInfection(){
@@ -111,6 +118,9 @@ public class Vaccine {
                 this.people[centerX-i][centerY-j].setState(State.INFECTIOUS);
             }
         }
+
+        //
+      
     }
 
     public void vaccinate(double vaccineRatio){
@@ -122,20 +132,6 @@ public class Vaccine {
         {
                 this.people[this.randOrder[i]/size][this.randOrder[i]%size].setState(State.VACCINATED);
         }
-
-        for(int i=0; i<size; i++)
-        {
-            for(int j=0; j<size; j++)
-            {
-                System.out.println(i+","+j+","+people[i][j]);
-            }
-        }
-
-        for(int i=0; i<8; i++)
-        {
-            System.out.println(i+" : "+people[1][1].getNeighbors()[i]);
-        }
-        System.out.println(people[1][1]);
     }
 
     int[] randPerm(int n){
@@ -156,11 +152,15 @@ public class Vaccine {
                people[i][j].update(recoveryRate);
             }
         }
-       for(int i=0; i<size; i++)
+       for(int i=1; i<size-1; i++)
         {
-            for(int j=0; j<size; j++)
-            {
-               people[i][j].infectNeighbors(infectionRate); 
+            for(int j=1; j<size-1; j++)
+            {//peoplestate가 감염상태가 아니여도 들어가버림 
+                if(getPeopleState()[i][j] == State.INFECTIOUS);
+                {
+                    System.out.print(i+"i"+":"+j+"j" +"번째 진입 : "+getPeopleState()[i][j]);
+                    people[i][j].infectNeighbors(infectionRate); 
+                }
             }
         }
         
@@ -178,7 +178,7 @@ public class Vaccine {
         {
             for(int j=0; j<size; j++)
             {   
-                if(people[i][j].isSusceptible())
+                if(people[i][j].isSuseceptible())
                 {
                     peopleState[i][j] = State.SUSCEPTIBLE;
                 }
