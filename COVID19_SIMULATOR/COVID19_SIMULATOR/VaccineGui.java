@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 public class VaccineGui {
     public static void main(String[] args) {
+        
     EventQueue.invokeLater(() -> {
         JFrame frame = new VaccineFrame();
         frame.setTitle("Vaccine");

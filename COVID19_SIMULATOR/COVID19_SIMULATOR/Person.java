@@ -2,7 +2,7 @@ package COVID19_SIMULATOR;
 import COVID19_SIMULATOR.Vaccine;
 import COVID19_SIMULATOR.MainEXE;
 public class Person{
-    State state;
+    private State state;
     private boolean infected;
     private Person[] neighbors;
 
@@ -28,39 +28,35 @@ public class Person{
 }
 
     public void infectNeighbors(double infectionRate){
-        System.out.println("이웃전파 들어옴");
+       // System.out.println("이웃전파 들어옴");
         for(int i=0; i<8; i++)
         {
             if(!(getNeighbors()[i].isVaccinated()))
             {
                 if(getNeighbors()[i].isSuseceptible() && infectionRate >= Math.random())
                 {
-                    System.out.print("ROfI"+"["+i+"]"+getNeighbors()[i]+" / ");
-                    getNeighbors()[i].setState(State.INFECTIOUS);
+                    //System.out.print("ROfI"+"["+i+"]"+getNeighbors()[i]+" / ");
+                    getNeighbors()[i].infected = true; 
                 }
             }
             
         }
         System.out.println();
     }
-
+    //의심 -> 감염 infected시, 회복률에 따라 
     public void update(double recoveryRate){
-        if(isInfectious() && recoveryRate>=Math.random())
+        if(this.infected && recoveryRate>=Math.random())
         {
             setState(State.SUSCEPTIBLE);
+            this.infected = false; 
+        }else if(this.infected)
+        {
+            setState(State.INFECTIOUS);
         }
     }
 
     public void setState(State state){
         this.state = state; 
-        if(isInfectious()) // 감염 상태로 바꿀 경우 
-        {
-            this.infected = true; // 불리언 값도 바꿔줌
-        }
-        else                     // 그 외 경우로 바꾸는 경우(백신, 안걸린 경우 등등)
-        {
-            this.infected = false; // 감염여부 거짓 
-        }
     }
 
     public boolean isSuseceptible(){
